@@ -1,0 +1,719 @@
+:root {
+            --ink:       #0d0b14;
+            --midnight:  #12101e;
+            --plum:      #1e1630;
+            --gold:      #c9a84c;
+            --gold-soft: #e8c97a;
+            --moon:      #f0e6c8;
+            --text:      #cfc4a8;
+            --muted:     #7a7060;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--ink);
+            color: var(--text);
+            font-family: 'Prociono', Georgia, serif;
+            overflow-x: hidden;
+        }
+
+        .escena {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+        .escena img, .escena button, .escena a { position: absolute; display: block; }
+        .fondo  { inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .luz    { inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+        .suelo  { bottom: 0; left: 0; width: 100%; z-index: 3; }
+
+        .escena button, .escena .btn-link {
+            background: none; border: none; cursor: pointer; padding: 0;
+            z-index: 4; transition: transform 0.3s ease, filter 0.3s ease;
+            transform-origin: center bottom;
+        }
+        .escena button:hover, .escena .btn-link:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.55));
+        }
+        .escena button img, .escena .btn-link img { width: 100%; display: block; }
+
+        .btn-luna      { left: 2%;   bottom: 90%; width: 50%; height: 50%; }
+        .btn-personaje { left: 32%;  bottom: 42%; width: 18%; height: 18%; }
+
+        .btn-arbol     { right: 3%;  bottom: 44%; width: 17%; height: 21%; }
+        .btn-tumba     { left: 6%;  bottom: 35%; width: 9%; }   /* a la izquierda, sobre el suelo; ajusta left/bottom si hace falta */
+
+        /* ── Nueva Escena para el Juego ── */
+        .escena-juego {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            margin-top: 32px;
+        }
+
+        .scene-fade {
+            width: 100%; height: 120px;
+            background: linear-gradient(to bottom, transparent, var(--ink));
+            margin-top: -120px; position: relative; z-index: 10; pointer-events: none;
+        }
+
+        .carousel-section {
+            background: linear-gradient(135deg, #140505 10%, #0d0202 40%, #110303 70%, #080202 100%);
+            padding: 72px 0; position: relative; overflow: hidden;
+        }
+        .carousel-section::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 80% at 20% 50%, rgba(255,80,60,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 70% at 80% 30%, rgba(180,0,0,0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .carousel-section::after {
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 3px,
+                rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+            );
+            pointer-events: none;
+        }
+        .carousel-label {
+            text-align: center; margin-bottom: 40px; position: relative; z-index: 2;
+        }
+        .carousel-label span {
+            font-family: 'Cinzel', serif; font-size: 0.65rem;
+            letter-spacing: 0.4em; text-transform: uppercase;
+            color: rgba(255, 200, 180, 0.7);
+        }
+        /* ── PANTALLA ARRASTRABLE (reemplaza al carrusel) ── */
+        .board-wrap { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .board {
+            position: relative;
+            width: 100%;
+            height: 720px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(40,6,6,0.55) 0%, rgba(8,2,2,0.85) 100%);
+            border: 1px solid rgba(255, 160, 120, 0.25);
+            box-shadow: inset 0 0 70px rgba(0,0,0,0.7), 0 0 40px rgba(120,0,0,0.25);
+            touch-action: none;
+        }
+        .board-hint {
+            position: absolute; top: 12px; left: 0; right: 0;
+            text-align: center; pointer-events: none; z-index: 1;
+            font-family: 'Cinzel', serif; font-size: 0.6rem;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: rgba(255, 200, 180, 0.35);
+            transition: opacity 0.6s ease;
+        }
+        .board-hint.hidden { opacity: 0; }
+        .board-item {
+            position: absolute;
+            width: 340px;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+            border: 1px solid rgba(255, 160, 120, 0.3);
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+            transform: rotate(var(--rot, 0deg));
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .board-item:hover { box-shadow: 0 8px 26px rgba(160,0,0,0.45); }
+        .board-item.dragging {
+            cursor: grabbing;
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.75);
+            transition: none;
+        }
+        .board-item img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            pointer-events: none;
+            filter: brightness(0.9) saturate(1.1);
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+        /* Tarjeta "Estudiante": muestra la parte inferior de la imagen como thumbnail.
+           Ajusta el segundo valor: 100% = pegado abajo, 85% / 70% = un poco más arriba. */
+        .board-item img.estudiante { object-position: 50% 100%; }
+        .board-item:hover img { transform: scale(1.06); filter: brightness(0.7) saturate(1.3); }
+        .board-item-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 20px 12px 12px;
+            background: linear-gradient(to top, rgba(80,0,0,0.9) 15%, transparent 100%);
+            font-family: 'Cinzel', serif; font-size: 0.75rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: rgba(255, 210, 190, 0.9);
+            opacity: 0; transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+        .board-item:hover .board-item-caption { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 700px) {
+            .board { height: 640px; }
+            .board-item { width: 210px; }
+            .board-item-caption { font-size: 0.55rem; padding: 14px 8px 8px; }
+        }
+
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 1, 1, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 40px;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+        .lightbox-overlay.active {
+            display: flex;
+            animation: lightboxFade 0.25s ease;
+        }
+        @keyframes lightboxFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 1px solid rgba(255, 160, 120, 0.3);
+            box-shadow: 0 0 60px rgba(0,0,0,0.6);
+            cursor: default;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: rgba(255, 210, 190, 0.9);
+            font-size: 2.2rem;
+            font-family: 'Prociono', Georgia, serif;
+            line-height: 1;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+        .lightbox-close:hover { color: var(--gold-soft); }
+
+        .content { max-width: 860px; margin: 0 auto; padding: 80px 32px 120px; }
+
+        .intro-grid {
+            display: flex;
+            align-items: center;
+            gap: 52px;
+            margin-bottom: 48px;
+            scroll-margin-top: 40px;
+        }
+        .intro-photo {
+            flex: 0 0 220px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(201, 168, 76, 0.4);
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+            flex-shrink: 0;
+        }
+        .intro-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.15);
+            display: block;
+            image-rendering: -webkit-optimize-contrast;
+        }
+        .intro-text { flex: 1; }
+        .intro-text h1 { margin-bottom: 12px; }
+
+        @media (max-width: 600px) {
+            .intro-grid {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 28px;
+            }
+            .intro-photo {
+                flex: 0 0 160px;
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .eyebrow {
+            display: inline-block; font-family: 'Cinzel', serif;
+            font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 28px; position: relative; padding-left: 36px;
+        }
+        .eyebrow::before {
+            content: ''; position: absolute; left: 0; top: 50%;
+            width: 24px; height: 1px; background: var(--gold);
+        }
+        h1 {
+            font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 700; line-height: 1.1; color: var(--moon); margin-bottom: 24px;
+            text-shadow: 0 0 60px rgba(201, 168, 76, 0.25);
+        }
+        h2 {
+            font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 400; color: var(--gold-soft); margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; font-weight: 300;
+            color: var(--gold-soft); line-height: 1.55; margin-bottom: 48px; max-width: 640px;
+        }
+        .divider { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold) 60%, transparent);
+        }
+        .divider span { color: var(--gold); font-size: 1.1rem; line-height: 1; }
+        .body-text { font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.85; color: var(--text); margin-bottom: 28px; font-weight: 300; }
+        .body-text strong { color: var(--moon); font-weight: 400; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-top: 64px; }
+        .feature { border-top: 1px solid rgba(201, 168, 76, 0.3); padding-top: 24px; }
+        .feature-icon { font-size: 1.5rem; margin-bottom: 12px; display: block; }
+        .feature h3 {
+            font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 400;
+            letter-spacing: 0.12em; color: var(--gold-soft); margin-bottom: 10px; text-transform: uppercase;
+        }
+        .feature p { font-size: 0.95rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+        .cta-wrap { margin-top: 72px; text-align: center; }
+        .cta {
+            display: inline-block; font-family: 'Cinzel', serif;
+            font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+            color: var(--ink); background: var(--gold); padding: 16px 40px;
+            text-decoration: none; transition: background 0.3s, box-shadow 0.3s;
+        }
+        .cta:hover { background: var(--gold-soft); box-shadow: 0 0 40px rgba(201, 168, 76, 0.4); }
+
+        footer {
+            border-top: 1px solid rgba(201, 168, 76, 0.15);
+            text-align: center; padding: 32px; font-size: 0.8rem;
+            color: var(--muted); letter-spacing: 0.08em;
+        }
+
+        /* ── INSPIRACIONES ARTÍSTICAS (ease-in de izquierda a derecha + texto) ── */
+        .raices-section {
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+            margin: 8px auto 56px;
+        }
+        .inspiracion {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .inspiracion-img {
+            flex: 0 0 44%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border: 1px solid rgba(201, 168, 76, 0.35);
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.12);
+        }
+        .inspiracion-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: var(--pos, center);   /* ajusta qué parte se ve: --pos: 50% 20%; */
+            display: block;
+        }
+        .inspiracion-texto { flex: 1; }
+        .inspiracion-nombre {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-soft);
+            margin-bottom: 14px;
+        }
+        .inspiracion-texto p {
+            font-size: clamp(1rem, 1.4vw, 1.1rem);
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--text);
+        }
+
+        /* Estado inicial: fuera de pantalla, a la izquierda, invisible */
+        .inspiracion-img,
+        .inspiracion-texto {
+            opacity: 0;
+            transform: translateX(-70px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+        /* Estado visible: entran de izquierda a derecha (primero la imagen, luego el texto) */
+        .inspiracion.visible .inspiracion-img,
+        .inspiracion.visible .inspiracion-texto {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .inspiracion.visible .inspiracion-texto { transition-delay: 0.25s; }
+
+        @media (max-width: 700px) {
+            .inspiracion { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .inspiracion-img { flex: none; width: 100%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .inspiracion-img, .inspiracion-texto { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* ── SECCIÓN DE ANIMACIONES ── */
+        .gif-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 32px 120px;
+        }
+        .gif-section-title {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .gif-frame,
+        .video-frame {
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border: 1px solid rgba(201, 168, 76, 0.35);
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.12);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .gif-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        /* El video se muestra completo (sin recortar), con sus controles */
+        .video-frame { background: #000; }
+        .video-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #000;
+        }
+        .gif-desc h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-soft);
+            margin-bottom: 14px;
+        }
+        .gif-desc p {
+            font-size: clamp(1rem, 1.4vw, 1.1rem);
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--text);
+        }
+
+        /* Proyecto 1: GIF a un lado, video mp4 completo al otro, descripción debajo */
+        .proyecto { margin-bottom: 96px; }
+        .proyecto-medios {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+        .proyecto .gif-desc {
+            max-width: 760px;
+            margin: 32px auto 0;
+        }
+
+        /* Animación 2: tarjeta completa que funciona como botón a otra página */
+        .gif-card {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            color: inherit;
+            text-decoration: none;
+        }
+        .gif-card .gif-frame { flex: 0 0 48%; }
+        .gif-card .gif-desc { flex: 1; }
+        .gif-boton {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 24px;
+            border: 1px solid rgba(201, 168, 76, 0.5);
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold-soft);
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .gif-card--link { cursor: pointer; }
+        .gif-card--link:hover .gif-frame,
+        .gif-card--link:focus-visible .gif-frame {
+            border-color: var(--gold);
+            box-shadow: 0 0 50px rgba(201, 168, 76, 0.35);
+        }
+        .gif-card--link:hover .gif-frame img,
+        .gif-card--link:focus-visible .gif-frame img { transform: scale(1.04); }
+        .gif-card--link:hover .gif-boton,
+        .gif-card--link:focus-visible .gif-boton {
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--moon);
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.25);
+        }
+        .gif-card--link:focus-visible { outline: none; }
+        @media (max-width: 700px) {
+            .proyecto-medios { grid-template-columns: 1fr; gap: 24px; }
+            .gif-card { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .gif-card .gif-frame { flex: none; width: 100%; }
+        }
+
+        /* ── PANTALLAZO CON TÍTULO Y EXPLICACIÓN ── */
+        .lightbox-box {
+            display: flex;
+            flex-direction: row;              /* imagen vertical: texto al lado */
+            align-items: center;
+            gap: 36px;
+            max-width: 94vw;
+            cursor: default;
+        }
+        .lightbox-box #lightboxImg {
+            flex: 0 1 auto;
+            min-width: 0;
+            max-width: 58vw;
+            max-height: calc(100vh - 100px);
+        }
+        .lightbox-info {
+            flex: 0 0 min(340px, 30vw);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-left: 28px;
+            border-left: 1px solid rgba(201, 168, 76, 0.35);
+        }
+        .lightbox-titulo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.4;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold-soft);
+            margin-bottom: 14px;
+        }
+        .lightbox-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: var(--text);
+        }
+        /* Imagen horizontal: título y explicación debajo */
+        .lightbox-box.horizontal { flex-direction: column; gap: 22px; }
+        .lightbox-box.horizontal #lightboxImg { max-width: 90vw; max-height: 58vh; }
+        .lightbox-box.horizontal .lightbox-info {
+            flex: none;
+            width: min(760px, 90vw);
+            max-height: 24vh;
+            padding: 18px 0 0;
+            border-left: none;
+            border-top: 1px solid rgba(201, 168, 76, 0.35);
+        }
+        @media (max-width: 700px) {
+            .lightbox-overlay { padding: 56px 16px 16px; }
+            .lightbox-box,
+            .lightbox-box.horizontal { flex-direction: column; gap: 18px; }
+            .lightbox-box #lightboxImg,
+            .lightbox-box.horizontal #lightboxImg { max-width: 92vw; max-height: 50vh; }
+            .lightbox-info,
+            .lightbox-box.horizontal .lightbox-info {
+                flex: none;
+                width: 92vw;
+                max-height: 28vh;
+                padding: 14px 0 0;
+                border-left: none;
+                border-top: 1px solid rgba(201, 168, 76, 0.35);
+            }
+        }
+
+        /* ── CONTACTO ── */
+        .contacto {
+            text-align: center;
+            padding: 24px 32px 88px;
+        }
+        .contacto h2 { margin-bottom: 14px; }
+        .contacto-texto {
+            font-size: 1.05rem;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+        .contacto-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .contacto-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 28px;
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            color: var(--gold-soft);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .contacto-link svg { width: 24px; height: 24px; flex: none; }
+        .contacto-link:hover,
+        .contacto-link:focus-visible {
+            background: rgba(201, 168, 76, 0.1);
+            border-color: var(--gold);
+            color: var(--moon);
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.25);
+            outline: none;
+        }
+
+        /* ── TEXTO FLOTANTE DE LOS BOTONES DE LA ESCENA ── */
+        .escena-tip {
+            position: fixed;
+            left: 0; top: 0;
+            z-index: 50;
+            pointer-events: none;
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: var(--gold-soft);
+            background: rgba(13, 11, 20, 0.85);
+            border: 1px solid rgba(201, 168, 76, 0.45);
+            box-shadow: 0 0 24px rgba(201, 168, 76, 0.2);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            transform: translate(-50%, -100%);
+            transition: opacity 0.2s ease;
+        }
+        .escena-tip.visible { opacity: 1; }
+        .escena-tip.abajo { transform: translate(-50%, 0); }
+        @media (hover: none) { .escena-tip { display: none; } }   /* en táctil no hay cursor */
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVIDAD · TABLET (≤1024px) Y CELULAR (≤700px)
+           El diseño de escritorio no se toca: todo va en media queries.
+           ═══════════════════════════════════════════════════════════ */
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+        button { -webkit-tap-highlight-color: transparent; }
+        footer img { max-width: 100%; height: auto; }
+
+        /* Pantallas táctiles: no existe "hover", así que se desactivan los efectos
+           que se quedan pegados y la leyenda de cada imagen se muestra siempre */
+        @media (hover: none) {
+            .escena button:hover, .escena .btn-link:hover { transform: none; filter: none; }
+            .board-item:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.55); }
+            .board-item:hover img { transform: none; filter: brightness(0.9) saturate(1.1); }
+            .board-item-caption { opacity: 1; transform: none; }
+            .gif-card--link:hover .gif-frame img { transform: none; }
+        }
+
+        /* El fondo de la galería deja pasar el scroll vertical con el dedo;
+           las tarjetas siguen siendo arrastrables en cualquier dirección */
+        .board { touch-action: pan-y; }
+
+        /* ── TABLET (horizontal y vertical) ── */
+        @media (max-width: 1024px) {
+            .content { padding: 64px 28px 96px; }
+            .intro-grid { gap: 40px; }
+            .raices-section { gap: 52px; }
+            .inspiracion { gap: 32px; }
+            .gif-section { padding: 32px 28px 96px; }
+            .gif-card { gap: 36px; }
+            .contacto { padding: 24px 28px 72px; }
+        }
+
+        @media (min-width: 701px) and (max-width: 1024px) {
+            .board { height: 700px; }
+            .board-item { width: 300px; }
+
+            .lightbox-overlay { padding: 56px 28px 28px; }
+            .lightbox-close { top: 14px; right: 20px; width: 48px; height: 48px; }
+            .lightbox-box { gap: 28px; }
+            .lightbox-box #lightboxImg { max-width: 56vw; }
+            .lightbox-info { flex: 0 0 min(340px, 34vw); padding-left: 22px; }
+            .lightbox-desc { font-size: 1rem; line-height: 1.7; }
+        }
+
+        /* ── CELULAR ── */
+        @media (max-width: 700px) {
+            /* Escena interactiva */
+            .scene-fade { height: 64px; margin-top: -64px; }
+
+            /* Galería arrastrable */
+            .carousel-section { padding: 48px 0; }
+            .carousel-label { margin-bottom: 28px; }
+            .board-wrap { padding: 0 16px; }
+            .board { height: 540px; }
+            .board-item { width: 168px; }
+            .board-hint { font-size: 0.52rem; letter-spacing: 0.2em; padding: 0 8px; }
+            .board-item-caption { font-size: 0.55rem; padding: 14px 8px 8px; }
+
+            /* Pantallazo (lightbox) */
+            .lightbox-close { top: 10px; right: 10px; width: 44px; height: 44px; font-size: 2rem; }
+            .lightbox-desc { font-size: 0.98rem; line-height: 1.7; }
+            @supports (height: 100dvh) {
+                .lightbox-box #lightboxImg,
+                .lightbox-box.horizontal #lightboxImg { max-height: 50dvh; }
+                .lightbox-info,
+                .lightbox-box.horizontal .lightbox-info { max-height: 30dvh; }
+            }
+
+            /* Presentación */
+            .content { padding: 48px 20px 72px; }
+            .eyebrow { margin-bottom: 20px; }
+            .subtitle { margin-bottom: 32px; }
+            .divider { margin-bottom: 32px; }
+
+            /* Inspiraciones */
+            .raices-section { gap: 44px; }
+            .inspiracion-img,
+            .inspiracion-texto { transform: translateX(-36px); }
+            .inspiracion-texto br { display: none; }   /* los saltos de línea forzados se ven mal en pantallas angostas */
+
+            /* Animaciones */
+            .gif-section { padding: 24px 20px 80px; }
+            .gif-section-title { margin-bottom: 40px; }
+            .proyecto { margin-bottom: 64px; }
+            .proyecto .gif-desc { margin-top: 24px; }
+
+            /* Contacto y pie */
+            .contacto { padding: 16px 20px 64px; }
+            .contacto-links { gap: 14px; }
+            footer { padding: 28px 20px; font-size: 0.72rem; line-height: 1.7; }
+        }
+
+        @media (max-width: 700px) {
+            .btn-tumba { width: 12%; }
+        }
+
+        /* ── CELULARES PEQUEÑOS ── */
+        @media (max-width: 420px) {
+            .intro-photo { flex: 0 0 140px; width: 140px; height: 140px; }
+            .contacto-links { flex-direction: column; align-items: stretch; }
+            .contacto-link { justify-content: center; padding: 14px 16px; }
+            .gif-boton { padding: 12px 18px; }
+        }
