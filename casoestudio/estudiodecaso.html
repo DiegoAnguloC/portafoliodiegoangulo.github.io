@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de caso | Diego</title>
+    <meta name="description" content="Estudio de caso de Diego: el proceso detrás de la animación basada en un microcuento.">
+    <meta name="robots" content="index, follow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Prociono&display=swap" rel="stylesheet">
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+    <div class="fondo-atmosfera" aria-hidden="true"></div>
+
+    <a class="volver" href="../finili.html"><span aria-hidden="true">&larr;</span> Volver al portafolio</a>
+
+    <!-- ══════════ PORTADA ══════════ -->
+    <header class="hero">
+        
+        <h1>Estudio de caso</h1>
+
+        <div class="divider"><span>✦</span></div>
+
+        <blockquote class="microcuento">
+            <p>"Una mujer está sentada sola en una casa. Sabe que no hay nadie más en el mundo: 
+                todos los otros seres han muerto. Golpean a la puerta."</p> 
+        </blockquote>
+        <p>- Thomas Bailey Aldrich</p>
+
+
+    </header>
+
+    <main class="secciones">
+        <section class="seccion seccion-contexto" id="contexto">
+            <header class="seccion-cabecera">
+                <span class="eyebrow">01</span>
+                <h2>¿Qué nos pidieron hacer?</h2>
+            </header>
+
+            <div class="texto-bloque">
+                <p>Un microcuento, 5 personas y un resultado. Se nos pidió elegir un microcuento
+                    de una lista, al elegir este, vimos la naturaleza del microcuento por lo
+                    que naturalmente elegimos que se iba a ambientar en el terror. Una vez
+                    escogido, el cliente nos pidió que usaramos un objeto real para darle un uso
+                    en TouchDesigner, en este caso la puerta.
+                </p>
+
+
+                <p>Nos dividimos los trabajos y yo estuve a cargo de crear
+                    5 de 10 escenarios que den una impresión ominosa e incómoda.
+                    La otra mitad lo iba a hacer una compañera del grupo, yo sin
+                    embargo completé 4 escenarios debido a que hubo complicaciones
+                    en la creación de algunos de estos, que veremos a continuación.
+                </p>
+            </div>
+
+            <h3 class="subtitulo">Moodboard</h3>
+            <div class="moodboard">
+                <figure class="mb-fig mb-a">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 1 del moodboard"><img src="../imgs/puerta_a_otro_mundo_by_andy774477_de3v0rh-pre.jpg" alt="Moodboard 1" loading="lazy"></div>
+                    
+                </figure>
+                <figure class="mb-fig">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 2 del moodboard"><img src="../imgs/forest-snow-storm-picture-id912741582-67798188.jpg" alt="Moodboard 2" loading="lazy"></div>
+                    
+                </figure>
+                <figure class="mb-fig">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 3 del moodboard"><img src="../imgs/LaCosaPerro.jpg" alt="Moodboard 3" loading="lazy"></div>
+                    
+                </figure>
+                <figure class="mb-fig mb-b">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 4 del moodboard"><img src="../imgs/LaCosaBennings.jpg" alt="Moodboard 4" loading="lazy"></div>
+                    
+                </figure>
+                <figure class="mb-fig">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 5 del moodboard"><img src="../imgs/interestelasAN.jpg" alt="Moodboard 5" loading="lazy"></div>
+                   
+                </figure>
+                <figure class="mb-fig mb-b">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 6 del moodboard"><img src="../imgs/night-driving-in-a-snowstorm-2163790175.jpg" alt="Moodboard 6" loading="lazy"></div>
+                    
+                </figure>
+                <figure class="mb-fig">
+                    <div class="mb-item" tabindex="0" role="button" aria-label="Ampliar imagen 7 del moodboard"><img src="../imgs/DestroyedCity.webp" alt="Moodboard 7" loading="lazy"></div>
+                   
+                </figure>
+            </div>
+
+
+            <div class="texto-bloque">
+                <p>
+                </p>
+                <p><br></p>
+
+                <p>En el moodboard para mis escenarios principales y tomando en cuenta que
+                    la puerta va a lucir casi como un portal que se rescata principalmente de
+                    que se va a ver algo del otro lado. Hice en primer lugar elecciones simples, como
+                    una tormenta de nieve y un agujero negro, que son piezas visuales más enfocados
+                    en efectos con partículas y fuentes lumínicas. Sin embargo,
+                    para las referencias restantes como 'La Cosa' y la ciudad destruída, iba
+                    a usar ilustración digital y animación.
+                </p>
+            </div>
+        </section>
+
+        <!-- ══════════ 2ª SECCIÓN: RESOLUCIÓN (4 conceptos × 3 bocetos) ══════════ -->
+        <section class="seccion seccion-resolucion" id="resolucion">
+            <header class="seccion-cabecera">
+                <span class="eyebrow">02</span>
+                <h2>Bocetos y conceptos</h2>
+            </header>
+
+            <article class="concepto">
+                <header class="concepto-cabecera">
+                    <span class="concepto-num">Concepto 01</span>
+                    <h3 class="concepto-titulo">Tormenta de Nieve</h3>
+                </header>
+                <p class="concepto-desc">Para crear este escenario, opté por crear un fondo completamente
+                    oscuro con partículas blancas que simulen una fuerte nevada, pero para darle más 
+                    incomodidad, se me ocurrió darle destellos de luz como si cayese una rayo tal cual
+                    como se puede ver en el segundo boceto. Hice la animación en After Effects usando solo
+                    las partículas de "lluvia" y multipliqué dichas partículas para que parezca una
+                    ventisca, sin embargo faltaba añadir el destello y los efectos de sonido.
+                </p>
+                <div class="bocetos">
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/bocetosTormenta.JPG" alt="Concepto 1, boceto 1" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Primer boceto: fondo oscuro con partículas blancas de nevada.</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/bocetosTormentas.JPG" alt="Concepto 1, boceto 2" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Segundo boceto: destellos de luz, como si cayera un rayo.</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../videos&gifs/Apocalip.gif" alt="Concepto 1, boceto 3" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Animación en After Effects: ventisca hecha con partículas de lluvia multiplicadas.</figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="concepto">
+                <header class="concepto-cabecera">
+                    <span class="concepto-num">Concepto 02</span>
+                    <h3 class="concepto-titulo">Agujero Negro</h3>
+                </header>
+                <p class="concepto-desc">Desde el primer boceto tenía la intención de hacer
+                    el agujero negro, más parecido al que hicieron en Interestelar. Hice un
+                    boceto alternativo si bien el cual tiene más detalle, lo malo es que
+                    no lucía como un agujero negro, ni siquiera de otro estilo, entonces
+                    decidí optar por hacerlo lo más parecido a un agujero negro real, con
+                    una pequeña estilización de por medio, 
+                    haciendo que este crezca y se dirija hacia la pantalla.      </p>
+                <div class="bocetos">
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/AgujeroNegroBoceto1.jpeg" alt="Concepto 2, boceto 1" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Boceto Inicial del agujero negro con opciones de 
+                            sonidos irían (turbulencia, voces, audios del espacio), finalmente descartados.
+                        </figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/AgujeroNegroBoceto2.jpg" alt="Concepto 2, boceto 2" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Segundo boceto del agujero negro, descartado
+                            por tener más similitud a un púlsar que un agujero negro real.
+                        </figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/AgujeroNegroBocetofinal.jpg" alt="Concepto 2, boceto 3" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Boceto final de agujero negro, muy inspirado en
+                            el agujero negro de Interestelar.
+                        </figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="concepto">
+                <header class="concepto-cabecera">
+                    <span class="concepto-num">Concepto 03</span>
+                    <h3 class="concepto-titulo">Ciudad destruída</h3>
+                </header>
+                <p class="concepto-desc">La idea de hacer una ciudad destruída, era
+                    con el fín de darle un ambiente apocalíptico, como un cielo
+                    rojo con edificios destruidos, que luzca que ya es un yermo, sin civilización por la
+                    falta de calles. Se hizo un boceto e idea en papel, luego se ilustró en Clip Studio Paint
+                    en PNG los modelos de los edificios y luego en Photoshop se añadió el fondo rojo
+                    con el suelo que da la impresión de ser arena.
+                </p>
+                <div class="bocetos">
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/bocetoedificios.jpg" alt="Concepto 3, boceto 1" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Boceto en papel.</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/Edificios1.jpg" alt="Concepto 3, boceto 2" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Dibujo de edificios destruídos en Clip Studio Paint.</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/scenario2.png" alt="Concepto 3, boceto 3" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Filtros de color e iluminación, con un suelo
+                            arenoso.
+                        </figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="concepto">
+                <header class="concepto-cabecera">
+                    <span class="concepto-num">Concepto 04</span>
+                    <h3 class="concepto-titulo">El hombre rojo</h3>
+                </header>
+                <p class="concepto-desc">Muy inspirado en 'La Cosa' hice el primer
+                    boceto haciendo que la criatura esté de rodillas gritando al
+                    espectador, si bien esta idea inicial me parecía muy bien en cuanto
+                    a horror, opté por cambiar el horror misterioso a uno directo
+                    y 'shockeante'. En el segundo boceto, decidí hacer que sea soleado y en una
+                    pradera, para que sea más explícito y rompa un poco el cliché de
+                    que siempre el monstruo esté en la oscuridad. Ya para la composición final
+                    que todo lo dividí en capas y lo pasé a After Effects, hice la animación
+                    de la cabeza y los tentáculos de la espalda, aún así faltaba el sonido.
+                </p>
+                <div class="bocetos">
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/lacosita.jpg" alt="Concepto 4, boceto 1" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Primer boceto del hombre rojo</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../imgs/hombre_rojo_boceto2.jpg" alt="Concepto 4, boceto 2" loading="lazy"></div>
+                        <figcaption class="pie-imagen">2do boceto del hombre rojo</figcaption>
+                    </figure>
+                    <figure class="boceto-fig">
+                        <div class="boceto"><img src="../videos&gifs/hombre_rojo.gif" alt="Concepto 4, boceto 3" loading="lazy"></div>
+                        <figcaption class="pie-imagen">Animación en After Effects (Hombre Rojo muerto)</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </section>
+
+        <!-- ══════════ 3ª SECCIÓN: VIDEOS ══════════ -->
+        <section class="seccion seccion-videos" id="videos">
+            <header class="seccion-cabecera">
+                <span class="eyebrow">03</span>
+                <h2>Resolución y resultados finales</h2>
+            </header>
+
+            <article class="video-bloque">
+                <div class="video-caja">
+                    <video controls preload="metadata" playsinline>
+                        <source src="../videos&gifs/tormentaNieve.mp4" type="video/mp4">
+                        Tu navegador no puede reproducir este video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>Tormenta de Nieve (Final)</h3>
+                    <p>Esta animación de la tormenta fue animada en After Effects, editada en Vegas Pro, con
+                        efectos de luces y de sonido ambiental. Hay un pequeño cambio de velocidad
+                        en la caída de las partículas una vez que cae el segundo rayo, el más lejano.
+                    </p>
+                </div>
+            </article>
+
+            <article class="video-bloque">
+                <div class="video-caja">
+                    <video controls preload="metadata" playsinline>
+                        <source src="../videos&gifs/Agujeronegro.mp4" type="video/mp4">
+                        Tu navegador no puede reproducir este video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>Agujero Negro</h3>
+                    <p>Esta animación del agujero negro fue hecha en After Effects, con el paquete de efectos 'Pilot'.
+                        Antes se tenía pensado añadir un efecto de sonido, sin embargo se descartó porque es en el
+                        espacio y es más aterrador una amenaza natural silenciosa como lo es un verdadero
+                        agujero negro.
+                    </p>
+                </div>
+            </article>
+            <article class="video-bloque">
+                <div class="video-caja">
+                    <video controls preload="metadata" playsinline>
+                        <source src="../videos&gifs/Efecto1parcial.mp4" type="video/mp4">
+                        Tu navegador no puede reproducir este video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>Ciudad Destruida (Final)</h3>
+                    <p>Exporté por capas la composición realizada en Photoshop de la pieza gráfica, luego
+                        hice la animación en Vegas Pro para hacer un sutíl movimiento de la 
+                        neblina roja del fondo, luego añadí luces y "proyectiles" que se noten entre
+                        los edificios, como si se estuviesn disparando en medio de los mismos. Se añadió
+                        efectos de sonido de disparos y de una alarma nuclear.
+                    </p>
+                </div>
+            </article>
+            <article class="video-bloque">
+                <div class="video-caja">
+                    <video controls preload="metadata" playsinline>
+                        <source src="../videos&gifs/Hombrerojo.mp4" type="video/mp4">
+                        Tu navegador no puede reproducir este video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>El hombre rojo (Final)</h3>
+                    <p>Como mencioné anteriormente, hice una animación de esta criatura
+                        en After Effects, ya que separé por capas los tentáculos de su espalda
+                        y también su cabeza; para que saliera de su cuerpo y se mueva mientras gruñe
+                        y gime. Los sonidos de la criatura están actuados por mí, desde los gruñidos
+                        hasta el grito agónico. <br> Usé Vegas Pro para recortar la longitud
+                        de la animación original, luego añadí los efectos de sonido, alargados
+                        artificialmente para un mejor timing en la escena.
+                    </p>
+                </div>
+            </article>
+        </section>
+
+       
+        <section class="seccion seccion-recursos" id="recursos">
+            <header class="seccion-cabecera">
+                <span class="eyebrow"></span>
+                <h2>Mas de este proyecto</h2>
+            </header>
+        <div class="texto-bloque">
+                <p>Si quieres saber más de este proyecto grupal, haz click en el link de Drive
+                    que está todo el registro del proyecto, puedes ver la participación de mis compañero
+                    y la mía incluída en este trabajo. También si gustas, descárgate el guión que hicimos
+                    de nuestra interpretación de la obra para adaptarla a TouchDesigner.
+                </p>
+            </div>
+            <div class="recursos">
+                <!-- Descarga del PDF: guarda tu archivo como estudio/guion.pdf -->
+                <div class="recurso">
+                    <img class="recurso-icono" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/pdf.png" alt="" width="30" height="30" loading="lazy" decoding="async">
+                    <h3>Guion</h3>
+                    <a class="recurso-boton" href="Hay_Alguien_Ahi.pdf" download="guion-estudio-de-caso.pdf">
+                        <span>Acá el guion de nuestra interpretación de la obra</span>
+                        <span class="flecha" aria-hidden="true">&darr;</span>
+                    </a>
+                </div>
+
+                <!-- Enlace a Drive: cambia TU_ENLACE_DE_DRIVE por el enlace real -->
+                <div class="recurso">
+                    
+                    <img class="recurso-icono" src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-drive.png" alt="" width="30" height="30" loading="lazy" decoding="async">
+                    <h3>Proyecto final</h3>
+                    <a class="recurso-boton" href="https://drive.google.com/drive/folders/1DHOR7A5jqrYA1hKpptP2abPkRJ1oJboc?usp=drive_link" target="_blank" rel="noopener noreferrer">
+                        <span>Aquí está el proyecto finalizado en conjunto</span>
+                        <span class="flecha" aria-hidden="true">&nearr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ══════════ GALERÍA DEL MOODBOARD (pantallazo) ══════════ -->
+    <div class="galeria-overlay" id="galeriaOverlay" role="dialog" aria-modal="true" aria-label="Galería del moodboard">
+        <button type="button" class="galeria-cerrar" id="galeriaCerrar" aria-label="Cerrar">&times;</button>
+        <button type="button" class="galeria-flecha prev" id="galeriaPrev" aria-label="Imagen anterior">&larr;</button>
+        <img class="galeria-img" id="galeriaImg" alt="" draggable="false">
+        <button type="button" class="galeria-flecha next" id="galeriaNext" aria-label="Imagen siguiente">&rarr;</button>
+    </div>
+
+    <script>
+        (function () {
+            const items   = Array.from(document.querySelectorAll('.mb-item'));
+            const overlay = document.getElementById('galeriaOverlay');
+            const img     = document.getElementById('galeriaImg');
+            const btnPrev = document.getElementById('galeriaPrev');
+            const btnNext = document.getElementById('galeriaNext');
+            const btnCerrar = document.getElementById('galeriaCerrar');
+            if (!items.length || !overlay) return;
+
+            const sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const DUR = sinMovimiento ? 0 : 220;   // duración del deslizamiento (ms)
+
+            let actual = 0, abierto = false, animando = false, sesion = 0, ultimoFoco = null;
+
+            const srcDe = (i) => items[i].querySelector('img').getAttribute('src');
+            const altDe = (i) => items[i].querySelector('img').getAttribute('alt') || '';
+
+            // Mueve/atenúa la imagen (con o sin transición)
+            function aplicar(x, opacidad, conTransicion) {
+                img.style.transition = conTransicion ? `transform ${DUR}ms ease, opacity ${DUR}ms ease` : 'none';
+                img.style.transform  = `translateX(${x}px)`;
+                img.style.opacity    = opacidad;
+            }
+
+            function abrir(i) {
+                ultimoFoco = document.activeElement;
+                sesion++;
+                actual = i; abierto = true; animando = false;
+                aplicar(0, 1, false);
+                img.alt = altDe(i);
+                img.src = srcDe(i);
+                overlay.classList.add('active');
+                document.documentElement.style.overflow = 'hidden';   // bloquea el scroll de fondo
+                btnCerrar.focus({ preventScroll: true });
+            }
+
+            function cerrar() {
+                sesion++;
+                abierto = false; animando = false;
+                overlay.classList.remove('active');
+                document.documentElement.style.overflow = '';
+                img.removeAttribute('src');
+                if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus({ preventScroll: true });
+            }
+
+            // dir: +1 = siguiente, -1 = anterior (da la vuelta al llegar al final)
+            function ir(dir) {
+                if (!abierto || animando) return;
+                if (items.length < 2) { aplicar(0, 1, true); return; }
+                animando = true;
+                const s = sesion;
+                const salida = -dir * Math.max(window.innerWidth * 0.35, 120);
+                aplicar(salida, 0, true);                              // la actual sale
+
+                setTimeout(() => {
+                    if (s !== sesion) return;
+                    actual = (actual + dir + items.length) % items.length;
+
+                    const entrar = () => {
+                        if (s !== sesion) return;
+                        aplicar(dir * 80, 0, false);                   // la nueva se coloca al lado contrario
+                        void img.offsetWidth;                          // fuerza el reflow
+                        aplicar(0, 1, true);                           // y entra
+                        setTimeout(() => { if (s === sesion) animando = false; }, DUR);
+                    };
+
+                    img.alt = altDe(actual);
+                    img.src = srcDe(actual);
+                    if (img.complete) {
+                        entrar();
+                    } else {
+                        img.onload = img.onerror = () => { img.onload = img.onerror = null; entrar(); };
+                    }
+                }, DUR);
+            }
+
+            // ── Abrir desde el moodboard (clic o teclado) ──
+            items.forEach((it, i) => {
+                it.addEventListener('click', () => abrir(i));
+                it.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(i); }
+                });
+            });
+
+            // ── Botones ──
+            btnPrev.addEventListener('click', () => ir(-1));
+            btnNext.addEventListener('click', () => ir(1));
+            btnCerrar.addEventListener('click', cerrar);
+
+            // ── Teclado ──
+            document.addEventListener('keydown', (e) => {
+                if (!abierto) return;
+                if (e.key === 'Escape')          cerrar();
+                else if (e.key === 'ArrowLeft')  ir(-1);
+                else if (e.key === 'ArrowRight') ir(1);
+            });
+
+            // ── Arrastre con mouse y táctil (Pointer Events) ──
+            let toque = null;
+            overlay.addEventListener('pointerdown', (e) => {
+                if (animando || e.target.closest('button')) return;
+                if (e.button !== undefined && e.button !== 0) return;
+                toque = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), mover: false, objetivo: e.target };
+                overlay.setPointerCapture(e.pointerId);
+            });
+
+            overlay.addEventListener('pointermove', (e) => {
+                if (!toque || e.pointerId !== toque.id) return;
+                const dx = e.clientX - toque.x, dy = e.clientY - toque.y;
+                if (!toque.mover && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
+                    toque.mover = true;
+                    img.classList.add('arrastrando');
+                }
+                if (toque.mover) {
+                    // la imagen sigue al dedo/cursor y se va atenuando
+                    aplicar(dx, Math.max(0.35, 1 - Math.abs(dx) / (window.innerWidth * 0.8)), false);
+                }
+            });
+
+            function terminar(e, cancelado) {
+                if (!toque || e.pointerId !== toque.id) return;
+                const t = toque; toque = null;
+                img.classList.remove('arrastrando');
+                if (overlay.hasPointerCapture && overlay.hasPointerCapture(e.pointerId)) overlay.releasePointerCapture(e.pointerId);
+
+                const dx = e.clientX - t.x;
+                if (t.mover) {
+                    const velocidad = Math.abs(dx) / Math.max(1, performance.now() - t.t);   // px por ms
+                    const umbral = Math.min(120, window.innerWidth * 0.18);
+                    if (!cancelado && (Math.abs(dx) > umbral || (velocidad > 0.5 && Math.abs(dx) > 30))) {
+                        ir(dx < 0 ? 1 : -1);          // arrastrar a la izquierda = siguiente
+                    } else {
+                        aplicar(0, 1, true);          // no alcanzó: vuelve a su sitio
+                    }
+                } else if (!cancelado && t.objetivo !== img) {
+                    cerrar();                         // clic en el fondo
+                }
+            }
+            overlay.addEventListener('pointerup',     (e) => terminar(e, false));
+            overlay.addEventListener('pointercancel', (e) => terminar(e, true));
+        })();
+    </script>
+
+    <script>
+        /* Fade in / fade out de cada bloque al bajar o subir la página */
+        (function () {
+            const sel = [
+                '.hero h1', '.hero .divider', '.hero .microcuento', '.hero > p',
+                '.seccion-cabecera', '.texto-bloque', '.subtitulo', '.moodboard',
+                '.concepto', '.video-bloque', '.recursos'
+            ].join(',');
+            const els = Array.from(document.querySelectorAll(sel));
+            if (!els.length) return;
+
+            els.forEach((el) => el.classList.add('reveal'));
+
+            if (!('IntersectionObserver' in window)) {
+                els.forEach((el) => el.classList.add('visible'));
+                return;
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    const el = e.target;
+                    if (e.isIntersecting) {
+                        el.classList.remove('sale-arriba', 'sale-abajo');
+                        el.classList.add('visible');
+                    } else {
+                        // ¿salió por arriba (scroll hacia abajo) o por abajo (scroll hacia arriba)?
+                        const arriba = e.boundingClientRect.top < 0;
+                        el.classList.remove('visible');
+                        el.classList.toggle('sale-arriba', arriba);
+                        el.classList.toggle('sale-abajo', !arriba);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '-4% 0px -4% 0px' });
+
+            els.forEach((el) => io.observe(el));
+        })();
+    </script>
+
+</body>
+</html>
